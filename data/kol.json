@@ -1,0 +1,10 @@
+{
+  "wallets": [
+    {
+      "handle": "example-kol",
+      "chain": "solana",
+      "wallet": "REPLACE_WITH_REAL_KOL_WALLET_1",
+      "roles": ["KOL"]
+    }
+  ]
+}

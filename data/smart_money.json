@@ -1,0 +1,10 @@
+{
+  "wallets": [
+    {
+      "label": "example-smart-money-1",
+      "chain": "solana",
+      "wallet": "REPLACE_WITH_REAL_SMART_MONEY_WALLET_1",
+      "roles": ["SMART_MONEY"]
+    }
+  ]
+}

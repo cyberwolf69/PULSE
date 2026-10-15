@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#132620"><meta name="description" content="R4ISE virtual headquarters. Meet Pulse and watch your agent team at work.">
+  <title>R4ISE — The office is alive.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231d3b30'/%3E%3Ctext x='13' y='47' fill='%23c8f191' font-family='Arial' font-size='44' font-weight='bold'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="./" aria-label="R4ISE beranda"><span class="brand-mark">R<span>↗</span></span><span>R4ISE<small>AGENT HEADQUARTERS</small></span></a>
+  <nav class="main-nav" aria-label="Tampilan"><button class="nav active" data-view="office">Kantor</button><button class="nav" data-view="team">Tim <span>7</span></button><button class="nav" data-view="activity">Aktivitas</button></nav>
+  <div class="header-right"><span class="time" id="clock"></span><span class="ceo-avatar">P</span><span class="ceo-name">Pulse<small>CEO · R4ISE</small></span></div>
+</header>
+<main>
+  <section class="intro"><div><div class="eyebrow"><span></span> A LITTLE OFFICE. A LOT HAPPENING.</div><h1>The office is alive<span>.</span></h1><p>Kenali timmu. Lihat mereka bekerja, berpikir, dan rehat.</p></div><button class="connect-button" id="connect"><span class="plug-icon">⌁</span> Hubungkan engine <span>↗</span></button></section>
+  <div class="workspace">
+    <section class="office-panel" aria-label="Kantor virtual R4ISE">
+      <div class="office-toolbar"><div class="room-title"><span class="room-icon">▦</span><strong>R4ISE HQ</strong><span class="floor-label">Lantai 01</span></div><div class="toolbar-actions"><span class="mode-label" id="mode-label"><i></i> DEMO</span><button id="play" class="play-button" aria-label="Jeda simulasi">Ⅱ <span>Jeda</span></button><button id="speed" aria-label="Kecepatan simulasi">1×</button></div></div>
+      <div class="world-wrap" id="world-wrap">
+        <canvas id="office" role="img" aria-label="Kantor isometrik dengan tujuh karakter. Pilih agent melalui daftar tim untuk melihat aktivitasnya."></canvas>
+        <div class="world-label"><span class="tiny-square"></span> PULSE'S OFFICE <small>Make every signal count.</small></div>
+        <div class="scene-help">Pilih karakter untuk melihat aktivitasnya</div>
+        <div class="camera-controls"><button id="zoom-out" aria-label="Perkecil kantor">−</button><button id="fit" aria-label="Atur ulang kamera">⌖</button><button id="zoom-in" aria-label="Perbesar kantor">+</button></div>
+        <div id="scene-toast" class="scene-toast" hidden></div>
+      </div>
+      <div class="office-footer"><div class="status-key"><span><i class="busy-dot"></i>Sibuk <b id="busy-count">0</b></span><span><i class="waiting-dot"></i>Menunggu <b id="wait-count">0</b></span><span><i class="resting-dot"></i>Rehat <b id="rest-count">0</b></span></div><span id="connection-status">Simulasi aktivitas · belum terhubung ke engine</span></div>
+    </section>
+    <aside class="inspector"><div class="section-heading"><span>MEET THE TEAM</span><span class="count-badge">07</span></div><div class="team-list" id="team-list"></div><section class="agent-detail" id="agent-detail" aria-live="polite"></section></aside>
+  </div>
+  <section class="team-view secondary-view" id="team-view" hidden><div class="view-heading"><div><div class="eyebrow">THE PEOPLE BEHIND THE SIGNAL</div><h2>Satu kantor. Tujuh peran.</h2></div><span>Karakter mewakili modul engine</span></div><div class="team-grid" id="team-grid"></div></section>
+  <section class="chain-monitor" aria-label="Status chain engine"><div class="activity-heading"><div><h2>Chain monitor</h2><span id="chain-source">MENUNGGU ENGINE</span></div><span class="feed-note">Konfigurasi RPC tidak sama dengan poller aktif</span></div><div id="chain-metrics" class="chain-metrics"></div><div id="service-list" class="chain-list" aria-label="Status FOMO dan discovery"></div><div id="chain-list" class="chain-list"><p>Menunggu telemetri engine.</p></div></section>
+  <section class="activity-panel"><div class="activity-heading"><div><span class="activity-icon">↳</span><h2>Yang sedang terjadi</h2><span id="event-source">DEMO FEED</span></div><span class="feed-note" id="feed-note">Aktivitas simulasi, bukan transaksi nyata</span></div><div id="activity-list" class="activity-list" aria-label="Riwayat aktivitas agent"></div></section>
+  <footer class="page-footer"><span>R4ISE <b>×</b> PULSE</span><span>Built for signals. Designed for a little humanity.</span><span id="footer-mode">VIRTUAL OFFICE / DEMO</span></footer>
+</main>
+<dialog id="connect-dialog"><form method="dialog"><button class="close-dialog" aria-label="Tutup">×</button></form><div class="eyebrow">BRING YOUR ENGINE TO WORK</div><h2>Hubungkan kantor ke PULSE.</h2><p>Dashboard ini sudah satu paket dengan PULSE. Saat dijalankan lewat <b>python run.py</b>, kantor otomatis mengikuti aktivitas engine dan status chain dari konfigurasi yang ada.</p><div class="connection-options"><button id="demo-mode" class="option-card"><span>◉</span><strong>Jalankan demo</strong><small>Karakter bekerja, berjalan, dan rehat dalam simulasi.</small></button><button id="live-mode" class="option-card"><span>⌁</span><strong>Gunakan engine lokal</strong><small>Ambil status nyata dari bridge di origin yang sama.</small></button></div><p class="connection-result" id="connection-result" role="status"></p><details><summary>Cara menjalankan paket gabungan</summary><p>Dari folder PULSE, gunakan environment Python engine yang dependensinya sudah terpasang:</p><pre>python run.py</pre><p>Buka <b>http://127.0.0.1:8765</b>. Mode live terhubung otomatis. Untuk melihat kantor tanpa menjalankan engine:</p><pre>python run.py --demo</pre><p>Konfigurasi chain dan kredensial tetap di .env lokal. Klik mode demo di sini hanya mengubah tampilan; engine tetap berjalan sampai dihentikan dengan Ctrl+C di terminal.</p></details></dialog>
+<script src="app.js" defer></script>
+</body></html>
